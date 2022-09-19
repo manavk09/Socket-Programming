@@ -23,7 +23,7 @@ def server():
     print ("[S]: Got a connection request from a client at {}".format(addr))
 
     # send a intro message to the client.  
-    msg = "Welcome to CS 352!"
+    msg = "HELLO"[::-1]
     csockid.send(msg.encode('utf-8'))
 
     # Close the server socket
