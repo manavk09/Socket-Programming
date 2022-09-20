@@ -25,8 +25,16 @@ def server():
     # send a intro message to the client.  
     with open("in-proj.txt", "r+") as inProj:
         # Reading form a file
-        msg = inProj.read()
-        csockid.send(msg.encode('utf-8'))
+        msg = inProj.readlines()
+        temp = ""
+        l = len(msg)
+        for i in range(0,l):
+            if i == l-1:
+                temp += msg[i].strip()[::-1]
+            else:
+                temp += msg[i].strip()[::-1]
+                temp += "\r\n"
+        csockid.send(temp.encode('utf-8'))
 
     # Close the server socket
     ss.close()
