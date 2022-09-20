@@ -3,7 +3,7 @@ import threading
 import time
 import random
 
-# answer to written part: when you take ou the
+# answer to written part: when you take out the sleep, it does not wait for the client so everything happens out of order
 
 def client():
     try:
@@ -22,8 +22,12 @@ def client():
     cs.connect(server_binding)
 
     # Receive data from the server
-    data_from_server=cs.recv(100)
-    print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
+    data_from_server=cs.recv(1000)
+    with open("sample-out-proj.txt", "w") as file1:
+        # Writing data to a file
+        file1.writelines(data_from_server.decode('utf-8'))
+
+    #print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
     # close the client socket
     cs.close()
