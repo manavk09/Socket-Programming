@@ -23,8 +23,11 @@ def server():
     print ("[S]: Got a connection request from a client at {}".format(addr))
 
     # send a intro message to the client.  
-    msg = "HELLO"[::-1]
-    csockid.send(msg.encode('utf-8'))
+    with open("in-proj.txt", "r+") as file1:
+        # Reading form a file
+        #print(file1.read()) 
+        msg = file1.read()[::-1]
+        csockid.send(msg.encode('utf-8'))
 
     # Close the server socket
     ss.close()
