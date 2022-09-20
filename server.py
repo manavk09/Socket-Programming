@@ -21,21 +21,33 @@ def server():
     print("[S]: Server IP address is {}".format(localhost_ip))
     csockid, addr = ss.accept()
     print ("[S]: Got a connection request from a client at {}".format(addr))
+    data_from_client = csockid.recv(100)
+    file1 = open("sample-out-proj.txt", "w")
+    clientData = ""
+    while(data_from_client):
+        # file1.writelines(data_from_server.decode('utf-8'))
+        # print(data_from_client)
+        clientData+=(data_from_client.decode('utf-8'))
+        data_from_client = csockid.recv(100)
+    print(clientData)
 
+    lines = clientData.split('\n')
+    print(lines)
     # send a intro message to the client.  
-    with open("in-proj.txt", "r+") as inProj:
-        # Reading form a file
-        msg = inProj.readlines()
+    # with open("in-proj.txt", "r+") as inProj:
+    #     # Reading form a file
+    #     msg = inProj.readlines()
         
-        l = len(msg)
-        for i in range(0,l):
-            temp = ""
-            temp += msg[i].strip()[::-1]
-            if i != l-1:
-                temp += "\r\n"
-            csockid.send(temp.encode('utf-8'))
+    l = len(lines)
+    for i in range(0,l):
+        curLine = ""
+        curLine += lines[i].strip()[::-1]
+        if i != l-1:
+            curLine += "\r\n"
+        print('curLine: ' + curLine)
+        file1.writelines(curLine)
 
-    inProj.close()
+    # inProj.close()
     # Close the server socket
     ss.close()
     exit()

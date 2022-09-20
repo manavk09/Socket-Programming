@@ -16,22 +16,33 @@ def client():
     # Define the port on which you want to connect to the server
     port = 50007
     localhost_addr = socket.gethostbyname(socket.gethostname())
-
+    inProj = open("in-proj.txt", "r+")
     # connect to the server on local machine
     server_binding = (localhost_addr, port)
     cs.connect(server_binding)
-    file1 = open("sample-out-proj.txt", "w")
-    # Receive data from the server
-    data_from_server=cs.recv(100)
-    while data_from_server:
-        # Writing data to a file
-        file1.writelines(data_from_server.decode('utf-8'))
-        data_from_server = cs.recv(100)
+    # Reading form a file
+    msg = inProj.readlines()
+    l = len(msg)
+    for i in range(0,l):
+        temp = ""
+        temp += msg[i]
+        # if i != l-1:
+        #     temp += "\r\n"
+        cs.send(temp.encode('utf-8'))
+
+    # file1 = open("sample-out-proj.txt", "w")
+    # # Receive data from the server
+    # data_from_server=cs.recv(100)
+
+    # while data_from_server:
+    #     # Writing data to a file
+    #     file1.writelines(data_from_server.decode('utf-8'))
+    #     data_from_server = cs.recv(100)
 
     #print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
     # close the client socket
-    file1.close()
+    inProj.close()
     cs.close()
     exit()
 
