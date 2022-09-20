@@ -20,16 +20,18 @@ def client():
     # connect to the server on local machine
     server_binding = (localhost_addr, port)
     cs.connect(server_binding)
-
+    file1 = open("sample-out-proj.txt", "w")
     # Receive data from the server
-    data_from_server=cs.recv(1000)
-    with open("sample-out-proj.txt", "w") as file1:
+    data_from_server=cs.recv(100)
+    while data_from_server:
         # Writing data to a file
         file1.writelines(data_from_server.decode('utf-8'))
+        data_from_server = cs.recv(100)
 
     #print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
     # close the client socket
+    file1.close()
     cs.close()
     exit()
 

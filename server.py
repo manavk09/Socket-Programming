@@ -26,16 +26,16 @@ def server():
     with open("in-proj.txt", "r+") as inProj:
         # Reading form a file
         msg = inProj.readlines()
-        temp = ""
+        
         l = len(msg)
         for i in range(0,l):
-            if i == l-1:
-                temp += msg[i].strip()[::-1]
-            else:
-                temp += msg[i].strip()[::-1]
+            temp = ""
+            temp += msg[i].strip()[::-1]
+            if i != l-1:
                 temp += "\r\n"
-        csockid.send(temp.encode('utf-8'))
+            csockid.send(temp.encode('utf-8'))
 
+    inProj.close()
     # Close the server socket
     ss.close()
     exit()
@@ -44,9 +44,9 @@ if __name__ == "__main__":
     t1 = threading.Thread(name='server', target=server)
     t1.start()
 
-    # time.sleep(random.random() * 5)
+    time.sleep(random.random() * 5)
     # t2 = threading.Thread(name='client', target=client)
     # t2.start()
 
-    # # time.sleep(5)
-    # print("Done.")
+    time.sleep(5)
+    print("Done.")
