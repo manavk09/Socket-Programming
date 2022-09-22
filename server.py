@@ -29,10 +29,10 @@ def server():
         # print(data_from_client)
         clientData+=(data_from_client.decode('utf-8'))
         data_from_client = csockid.recv(100)
-    print(clientData)
+    ##print(clientData)
 
     lines = clientData.split('\n')
-    print(lines)
+    ##print(lines)
     # send a intro message to the client.  
     # with open("in-proj.txt", "r+") as inProj:
     #     # Reading form a file
@@ -44,7 +44,6 @@ def server():
         curLine += lines[i].strip()[::-1]
         if i != l-1:
             curLine += "\r\n"
-        print('curLine: ' + curLine)
         file1.writelines(curLine)
 
     # inProj.close()
